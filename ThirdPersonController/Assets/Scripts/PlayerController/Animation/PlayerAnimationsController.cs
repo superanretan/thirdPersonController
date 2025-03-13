@@ -1,16 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using PlayerController.Interfaces;
+using UnityEngine;
+using Zenject;
 
-public class PlayerAnimationsController : MonoBehaviour
+namespace PlayerController.Animation
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerAnimationsController : MonoBehaviour
     {
-        
-    }
+        private Animator _animator;
+        private IPlayerInput _playerInput;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Start()
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+
+        [Inject]
+        public void Construct(Animator animator, IPlayerInput playerInput) {
+            _animator = animator;
+            _playerInput = playerInput;
+            
+        }
+
+        private void SetupInputActions()
+        {
+            _playerInput.MoveInput += PlayerInputOnMoveInput;
+        }
+
+        private void PlayerInputOnMoveInput(Vector2 onMoveInput)
+        {
+            _animator.SetFloat("Vertical", onMoveInput.magnitude);
+        }
     }
 }

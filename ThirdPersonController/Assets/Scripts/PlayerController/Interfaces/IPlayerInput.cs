@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PlayerController.Interfaces
 {
     public interface IPlayerInput
     {
-       public Vector2 MoveInput { get; }
-       public Vector2 CameraRotationInput { get; }
+        public event Action<Vector2> MoveInput;
+        public event Action<Vector2> CameraRotationInput;
     }
 }
