@@ -1,12 +1,13 @@
 ﻿using System;
 using PlayerController.Interfaces;
+using PlayerController.StateManager;
 using UnityEngine;
 
 namespace PlayerController.Movement
 {
-    public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
+    public partial class PlayerMovementController :StateManagerBase, IPlayerMovementController
     {
-        private CharacterController _characterController;
+      
         
         public void OnMoveInput(Vector2 moveInput)
         {
@@ -18,5 +19,21 @@ namespace PlayerController.Movement
             _characterController = playerParent.GetComponentInChildren<CharacterController>();
         }
         
+        public void SwitchPlayerState(BaseState state)
+        {
+            SwitchState(state);
+        }
+
+        public override void SetupStartState(BaseState startState)
+        {
+            var stateNew = Instantiate(startState) as BaseState;
+            CurrentState = stateNew;
+            CurrentState.EnterState(this);
+        }
+
+        public override void SetupStartStateValue()
+        {
+          
+        }
     }
 }

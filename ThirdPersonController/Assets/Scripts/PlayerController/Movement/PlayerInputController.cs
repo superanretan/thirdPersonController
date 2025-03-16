@@ -8,6 +8,7 @@ namespace PlayerController.Movement
     {
         public event Action<Vector2> MoveInput;
         public event Action<Vector2> CameraRotationInput;
+        public event Action<bool> PlayerSprint;
 
         private PlayerInputActions _playerInputActions;
 

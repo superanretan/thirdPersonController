@@ -15,9 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Run",
+                    "name": "Sprint",
                     "type": "Button",
-                    "id": "d292a4a1-c6f8-4a54-94db-ee5da13f7b83",
+                    "id": "30778c99-bfec-498b-b7ac-e28babdb3ea1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -93,12 +93,23 @@
                 },
                 {
                     "name": "",
-                    "id": "28183a9c-13af-4971-8faf-3db5241e124c",
+                    "id": "da90a245-9d25-4d69-abb0-d4c5cf67a2d2",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75dcbbde-7eea-48db-8ed4-88d0084d8ab8",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

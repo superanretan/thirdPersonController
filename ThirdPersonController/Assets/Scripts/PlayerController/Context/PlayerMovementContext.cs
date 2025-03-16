@@ -1,4 +1,5 @@
-﻿using PlayerController.Animation;
+﻿using System;
+using PlayerController.Animation;
 using PlayerController.Interfaces;
 using PlayerController.Movement;
 using UnityEngine;
@@ -15,14 +16,14 @@ namespace PlayerController.Context
         
         
         [Inject]
-        public void Contruct(IPlayerAnimationsController playerAnimationsController,
+        public void Construct(IPlayerAnimationsController playerAnimationsController,
             IPlayerInput playerInput,
             IPlayerMovementController playerMovementController)
         {
             _playerAnimationsController = playerAnimationsController;
             _playerMovementController = playerMovementController;
             _playerInput = playerInput;
-            SetupMoveInputActions();
+            SetupMoveActions();
             SetupMovementController();
         }
 
@@ -31,14 +32,22 @@ namespace PlayerController.Context
             _playerMovementController.SetupMovementController(playerParent);
         }
         
-        private void SetupMoveInputActions()
+        private void SetupMoveActions()
         {
             _playerInput.MoveInput += PlayerInputOnMoveInput;
+            _playerMovementController.SetPlayerAnimationVerticalValue +=
+                _playerAnimationsController.SetPlayerAnimationWalkSpeed;
+        }
+
+        private void OnDisable()
+        {
+            _playerInput.MoveInput -= PlayerInputOnMoveInput;
+            _playerMovementController.SetPlayerAnimationVerticalValue -=
+                _playerAnimationsController.SetPlayerAnimationWalkSpeed;
         }
 
         private void PlayerInputOnMoveInput(Vector2 obj)
         {
-            _playerAnimationsController.OnMoveInput(obj);
             _playerMovementController.OnMoveInput(obj);
         }
     }

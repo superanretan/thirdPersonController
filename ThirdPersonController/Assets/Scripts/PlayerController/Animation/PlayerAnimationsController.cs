@@ -13,11 +13,7 @@ namespace PlayerController.Animation
             _animator = animator;
         }
 
-       public void OnMoveInput(Vector2 moveInput)
-       {
-           PlayerInputOnMoveInput(moveInput);
-       }
-
+   
        public void OnPlayerSprint(bool sprinting)
        {
            
@@ -38,7 +34,16 @@ namespace PlayerController.Animation
         {
             _animator.SetFloat("Vertical", onMoveInput.magnitude);
         }
-
+        
+        public void SetPlayerAnimationWalkSpeed(float speed)
+        {
+          
+            if (_animator != null)
+            {
+                _animator.SetFloat("Vertical", speed);
+             //   _animator.SetLayerWeight(_idleLayerIndex, speed <= 0.01f ? 1 : 0);
+            }
+        }
     
     }
 }
