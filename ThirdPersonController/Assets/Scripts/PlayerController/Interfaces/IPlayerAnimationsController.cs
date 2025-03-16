@@ -5,6 +5,9 @@ namespace PlayerController.Interfaces
 {
     public interface IPlayerAnimationsController
     {
-        public void SetupControler(Animator animator, Action<Vector2> onMoveInput);
+        public void SetupControler(Animator animator);
+        public void OnMoveInput(Vector2 moveInput);
+        public void OnPlayerSprint(bool sprinting);
+        public void OnPlayerJump();
     }
 }

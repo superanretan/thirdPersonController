@@ -15,6 +15,7 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<PlayerAnimationsController>().FromComponentInChildren(playerParent)
             .AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerInputController>().FromComponentInChildren(playerParent).AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerMovementController>().FromComponentInChildren(playerParent).AsSingle();
 
     }
 }

@@ -1,16 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using PlayerController.Interfaces;
+using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+namespace PlayerController.Movement
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerMovementController : MonoBehaviour, IPlayerMovementController
     {
+        private CharacterController _characterController;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        public void OnMoveInput(Vector2 moveInput)
+        {
+            
+        }
+        
+        public void SetupMovementController(GameObject playerParent)
+        {
+            _characterController = playerParent.GetComponentInChildren<CharacterController>();
+        }
         
     }
 }
