@@ -1,16 +1,21 @@
-﻿using UnityEngine;
+﻿using PlayerController.Animation;
+using PlayerController.Interfaces;
+using PlayerController.Movement;
+using UnityEngine;
+using Zenject;
 
-public class PlayerInstaller : MonoBehaviour
+public class PlayerInstaller : MonoInstaller
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject playerParent;
+    public override void InstallBindings()
     {
-        
-    }
+        // Container.Bind<IPlayerInput>().To<PlayerInputController>().FromComponentInChildren(playerParent).AsSingle();
+        // Container.Bind<IPlayerAnimationsController>().To<PlayerAnimationsController>()
+        //     .FromComponentInChildren(playerParent).AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerAnimationsController>().FromComponentInChildren(playerParent)
+            .AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerInputController>().FromComponentInChildren(playerParent).AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerMovementController>().FromComponentInChildren(playerParent).AsSingle();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -5,31 +5,44 @@ using Zenject;
 
 namespace PlayerController.Animation
 {
-    public class PlayerAnimationsController : MonoBehaviour
+    public class PlayerAnimationsController : MonoBehaviour, IPlayerAnimationsController
     {
         private Animator _animator;
-        private IPlayerInput _playerInput;
+       
+        public void SetupControler(Animator animator) 
+        {
+            _animator = animator;
+        }
+        
+       public void OnPlayerSprint(bool sprinting)
+       {
+           
+       }
 
-        private void Start()
+       public void OnPlayerJump()
+       {
+           
+       }
+
+       private void Start()
         {
             _animator = GetComponentInChildren<Animator>();
         }
-
-        [Inject]
-        public void Construct(Animator animator, IPlayerInput playerInput) {
-            _animator = animator;
-            _playerInput = playerInput;
-            
-        }
-
-        private void SetupInputActions()
-        {
-            _playerInput.MoveInput += PlayerInputOnMoveInput;
-        }
-
+       
         private void PlayerInputOnMoveInput(Vector2 onMoveInput)
         {
             _animator.SetFloat("Vertical", onMoveInput.magnitude);
         }
+        
+        public void SetPlayerAnimationWalkSpeed(float speed)
+        {
+          
+            if (_animator != null)
+            {
+                _animator.SetFloat("Vertical", speed);
+             //   _animator.SetLayerWeight(_idleLayerIndex, speed <= 0.01f ? 1 : 0);
+            }
+        }
+    
     }
 }

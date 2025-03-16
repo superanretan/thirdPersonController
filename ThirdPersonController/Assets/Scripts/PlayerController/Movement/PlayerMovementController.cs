@@ -1,16 +1,37 @@
-﻿using UnityEngine;
+﻿using System;
+using PlayerController.Interfaces;
+using PlayerController.StateManager;
+using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+namespace PlayerController.Movement
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public partial class PlayerMovementController: StateManagerBase, IPlayerMovementController
     {
-        
-    }
+        private void Start()
+        {
+            SetupStartState(PlayerIdleState());
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        public void SetupMovementController(GameObject playerParent)
+        {
+            _characterController = playerParent.GetComponentInChildren<CharacterController>();
+        }
         
+        public void SwitchPlayerState(BaseState state)
+        {
+            SwitchState(state);
+        }
+
+        public override void SetupStartState(BaseState startState)
+        {
+            var stateNew = Instantiate(startState) as BaseState;
+            CurrentState = stateNew;
+            CurrentState.EnterState(this);
+        }
+
+        public override void SetupStartStateValue()
+        {
+          
+        }
     }
 }

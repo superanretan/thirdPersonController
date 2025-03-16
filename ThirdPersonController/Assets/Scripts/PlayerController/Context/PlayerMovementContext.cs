@@ -1,16 +1,55 @@
-﻿using UnityEngine;
+﻿using System;
+using PlayerController.Animation;
+using PlayerController.Interfaces;
+using PlayerController.Movement;
+using UnityEngine;
+using Zenject;
 
-public class PlayerMovementContext : MonoBehaviour
+namespace PlayerController.Context
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerMovementContext : MonoBehaviour
     {
+        private GameObject _playerParent;
+        private IPlayerAnimationsController _playerAnimationsController;
+        private IPlayerMovementController _playerMovementController;
+        private IPlayerInput _playerInput;
         
-    }
+        
+        [Inject]
+        public void Construct(IPlayerAnimationsController playerAnimationsController,
+            IPlayerInput playerInput,
+            IPlayerMovementController playerMovementController)
+        {
+            _playerAnimationsController = playerAnimationsController;
+            _playerMovementController = playerMovementController;
+            _playerInput = playerInput;
+            _playerParent = transform.gameObject;
+            SetupMoveActions();
+            SetupMovementController();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void SetupMovementController()
+        {
+            _playerMovementController.SetupMovementController(_playerParent);
+        }
         
+        private void SetupMoveActions()
+        {
+            _playerInput.MoveInput += PlayerInputOnMoveInput;
+            _playerMovementController.SetPlayerAnimationVerticalValue +=
+                _playerAnimationsController.SetPlayerAnimationWalkSpeed;
+        }
+
+        private void OnDisable()
+        {
+            _playerInput.MoveInput -= PlayerInputOnMoveInput;
+            _playerMovementController.SetPlayerAnimationVerticalValue -=
+                _playerAnimationsController.SetPlayerAnimationWalkSpeed;
+        }
+
+        private void PlayerInputOnMoveInput(Vector2 obj)
+        {
+            _playerMovementController.OnMoveInput(obj);
+        }
     }
 }
