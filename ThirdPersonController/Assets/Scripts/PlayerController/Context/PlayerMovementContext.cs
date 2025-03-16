@@ -1,16 +1,11 @@
-﻿using UnityEngine;
+﻿using PlayerController.Animation;
+using PlayerController.Movement;
+using UnityEngine;
 
 public class PlayerMovementContext : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private GameObject playerParent;
+    private PlayerAnimationsController _playerAnimationsController;
+    private PlayerInputController _playerInputController;
+    
 }

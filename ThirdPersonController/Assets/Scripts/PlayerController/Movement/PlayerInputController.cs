@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PlayerController.Movement
 {
-    public class PlayerInputManager : MonoBehaviour, IPlayerInput
+    public class PlayerInputController : MonoBehaviour, IPlayerInput
     {
         public event Action<Vector2> MoveInput;
         public event Action<Vector2> CameraRotationInput;
