@@ -5,14 +5,10 @@ using UnityEngine;
 
 namespace PlayerController.Movement
 {
-    public partial class PlayerMovementController :StateManagerBase, IPlayerMovementController
+    public partial class PlayerMovementController: StateManagerBase, IPlayerMovementController
     {
-      
         
-        public void OnMoveInput(Vector2 moveInput)
-        {
-            
-        }
+   
         
         public void SetupMovementController(GameObject playerParent)
         {

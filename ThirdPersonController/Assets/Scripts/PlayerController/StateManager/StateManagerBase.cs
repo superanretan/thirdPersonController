@@ -13,9 +13,9 @@ namespace PlayerController.StateManager
             get => currentState;
             set => currentState = value;
         }
-        
+
         public abstract void SetupStartState(BaseState startState);
-        
+
         public abstract void SetupStartStateValue();
         
         public virtual void Update()

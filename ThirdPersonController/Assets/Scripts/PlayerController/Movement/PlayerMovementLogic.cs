@@ -3,8 +3,13 @@ using UnityEngine;
 
 namespace PlayerController.Movement
 {
-    public abstract partial class PlayerMovementController
+    public partial class PlayerMovementController
     {
+        public void OnMoveInput(Vector2 moveInput)
+        {
+            moveVector = moveInput;
+        }
+        
         public void HandleMovement()
         {
             var movementInput = MoveVector();

@@ -9,7 +9,7 @@ namespace PlayerController.Context
 {
     public class PlayerMovementContext : MonoBehaviour
     {
-        [SerializeField] private GameObject playerParent;
+        private GameObject _playerParent;
         private IPlayerAnimationsController _playerAnimationsController;
         private IPlayerMovementController _playerMovementController;
         private IPlayerInput _playerInput;
@@ -23,13 +23,14 @@ namespace PlayerController.Context
             _playerAnimationsController = playerAnimationsController;
             _playerMovementController = playerMovementController;
             _playerInput = playerInput;
+            _playerParent = transform.gameObject;
             SetupMoveActions();
             SetupMovementController();
         }
 
         private void SetupMovementController()
         {
-            _playerMovementController.SetupMovementController(playerParent);
+            _playerMovementController.SetupMovementController(_playerParent);
         }
         
         private void SetupMoveActions()

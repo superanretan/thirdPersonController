@@ -14,18 +14,16 @@ namespace PlayerController.Movement
 
         private void Awake()
         {
-            _playerInputActions = new PlayerInputActions();
-
-            _playerInputActions.PlayerMovement.Move.performed += ctx => MoveInput?.Invoke(ctx.ReadValue<Vector2>());
-            _playerInputActions.PlayerMovement.Move.canceled += ctx => MoveInput?.Invoke(Vector2.zero);
-
-        
-            _playerInputActions.CameraMovement.CameraRotation.performed += ctx => CameraRotationInput?.Invoke(ctx.ReadValue<Vector2>());
-            _playerInputActions.CameraMovement.CameraRotation.canceled += ctx => CameraRotationInput?.Invoke(Vector2.zero);
+            SetupInputActions();
         }
 
-        private void OnEnable()
+        private void SetupInputActions()
         {
+            _playerInputActions = new PlayerInputActions();
+            _playerInputActions.PlayerMovement.Move.performed += ctx => MoveInput?.Invoke(ctx.ReadValue<Vector2>());
+            _playerInputActions.PlayerMovement.Move.canceled += ctx => MoveInput?.Invoke(Vector2.zero);
+            _playerInputActions.CameraMovement.CameraRotation.performed += ctx => CameraRotationInput?.Invoke(ctx.ReadValue<Vector2>());
+            _playerInputActions.CameraMovement.CameraRotation.canceled += ctx => CameraRotationInput?.Invoke(Vector2.zero);
             _playerInputActions.Enable();
         }
 
