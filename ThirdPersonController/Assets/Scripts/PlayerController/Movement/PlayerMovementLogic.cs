@@ -5,6 +5,7 @@ namespace PlayerController.Movement
 {
     public partial class PlayerMovementController
     {
+        public event Action<float> SetPlayerAnimationVerticalValue;
         public void OnMoveInput(Vector2 moveInput)
         {
             moveVector = moveInput;
@@ -17,27 +18,38 @@ namespace PlayerController.Movement
 
             var movement = transform.forward * movementInput.y +
                            transform.right * movementInput.x;
-
-            movement.y = 0;
-
-            movement.Normalize();
-
-            var moveMagnitude = MoveVector().magnitude;
-            if (moveMagnitude > 0 && moveMagnitude < 0.2f)
-                moveMagnitude = 0.2f;
-
-
-            SetPlayerAnimationVerticalValue?.Invoke(moveMagnitude);
             
-            var newVelo = transform.forward * moveMagnitude * GetPlayerSpeed(); 
-          //  newVelo.y = adjustedVelocityY;
+            movement.Normalize();
+            SetPlayerAnimationVerticalValue?.Invoke(movementInput.magnitude);
+            var newVelo = transform.forward + movement * GetPlayerSpeed(); 
             _characterController.Move(newVelo * Time.deltaTime);
-        //    _playerVelocity = 1;
         }
 
-        public event Action<float> SetPlayerAnimationVerticalValue;
+        
+        private void HandleRotation()
+        {
+            var cameraForward = cameraTransform.forward;
+            var cameraRight = cameraTransform.right;
+
+            var targetDirection = cameraForward * MoveVector().y + cameraRight * MoveVector().x;
+            targetDirection.Normalize();
+            targetDirection.y = 0;
+
+            if (targetDirection == Vector3.zero)
+                targetDirection = transform.forward;
 
 
+            var targetRotation = Quaternion.LookRotation(targetDirection);
+            var playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            transform.rotation = playerRotation;
+        }
+        
+        public void StopAnimation()
+        {
+            SetPlayerAnimationVerticalValue?.Invoke(0);
+        }
+        
         private float GetPlayerSpeed() //return player speed based on current player state
         {
             var speed = 0.0f;

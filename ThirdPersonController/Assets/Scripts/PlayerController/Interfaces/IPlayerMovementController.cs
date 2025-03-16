@@ -14,6 +14,8 @@ namespace PlayerController.Interfaces
         public void HandleMovement();
         public void SwitchPlayerState(BaseState state);
 
+        public void StopAnimation();
+        
         public event Action<float> SetPlayerAnimationVerticalValue;
         
         public BaseState PlayerIdleState();

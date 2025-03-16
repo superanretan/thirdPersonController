@@ -7,9 +7,11 @@ namespace PlayerController.Movement
 {
     public partial class PlayerMovementController: StateManagerBase, IPlayerMovementController
     {
-        
-   
-        
+        private void Start()
+        {
+            SetupStartState(PlayerIdleState());
+        }
+
         public void SetupMovementController(GameObject playerParent)
         {
             _characterController = playerParent.GetComponentInChildren<CharacterController>();

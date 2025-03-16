@@ -9,11 +9,11 @@ namespace PlayerController.Animation
     {
         private Animator _animator;
        
-        public void SetupControler(Animator animator) {
+        public void SetupControler(Animator animator) 
+        {
             _animator = animator;
         }
-
-   
+        
        public void OnPlayerSprint(bool sprinting)
        {
            
@@ -28,8 +28,7 @@ namespace PlayerController.Animation
         {
             _animator = GetComponentInChildren<Animator>();
         }
-        
-        
+       
         private void PlayerInputOnMoveInput(Vector2 onMoveInput)
         {
             _animator.SetFloat("Vertical", onMoveInput.magnitude);

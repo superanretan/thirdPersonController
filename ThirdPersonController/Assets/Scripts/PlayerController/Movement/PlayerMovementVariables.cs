@@ -1,5 +1,6 @@
 using PlayerController.StateManager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PlayerController.Movement
 {
@@ -15,7 +16,11 @@ namespace PlayerController.Movement
         [SerializeField] private Vector2 moveVector;
         [SerializeField] protected float walkSpeed = 10;
         [SerializeField] protected float runSpeed = 20;
+        [SerializeField] protected float rotationSpeed = 5f;
+        [SerializeField] protected Transform cameraTransform;
+        
         private CharacterController _characterController;
+        
         
         public float MoveAmount()
         {
