@@ -5,7 +5,7 @@ using Zenject;
 
 namespace UI.Context
 {
-    public class PlayerStatsContext : MonoBehaviour
+    public class PlayerStatsContext : MonoBehaviour, IPlayerStatsContext
     {
         private IPlayerStatsMediator _playerStatsMediator;
         private SignalBus _signalBus;

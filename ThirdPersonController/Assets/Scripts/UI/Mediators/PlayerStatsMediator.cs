@@ -26,11 +26,9 @@ namespace UI.Mediators
             _playerHpMaxAmount = maxHp;
         }
         
-
         public void SetPlayerNickname(string nickname)
         {
             _playerStatsView.SetPlayerNickname(nickname);
         }
-        
     }
 }

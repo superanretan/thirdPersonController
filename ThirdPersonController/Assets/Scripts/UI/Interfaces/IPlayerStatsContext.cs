@@ -1,16 +1,7 @@
-using UnityEngine;
-
-public class IPlayerStatsContext : MonoBehaviour
+namespace UI.Interfaces
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public interface IPlayerStatsContext
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+   
     }
 }

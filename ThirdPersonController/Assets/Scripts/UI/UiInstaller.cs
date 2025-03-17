@@ -9,8 +9,8 @@ namespace UI.Context
         [SerializeField] private GameObject playerUI;
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<PlayerStatsMediator>().FromComponentsInChildren(playerUI).AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerStatsContext>().FromComponentsInChildren(playerUI).AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStatsMediator>().FromComponentsInChildren(playerUI).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerStatsContext>().FromComponentsInChildren(playerUI).AsSingle().NonLazy();
         }
     }
 }
