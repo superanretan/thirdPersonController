@@ -13,19 +13,29 @@ namespace PlayerController.Movement
         
         public void HandleMovement()
         {
-            var movementInput = MoveVector();
-            movementInput.Normalize();
+            var input = MoveVector();
+            if (input.sqrMagnitude > 0)
+                input.Normalize();
 
-            var movement = transform.forward * movementInput.y +
-                           transform.right * movementInput.x;
-            
+            // Obliczenie kierunku ruchu na podstawie kamery
+            Vector3 movement = cameraTransform.forward * input.y + cameraTransform.right * input.x;
+            movement.y = 0; // ignorujemy ruch w osi Y
             movement.Normalize();
-            SetPlayerAnimationVerticalValue?.Invoke(movementInput.magnitude);
-            var newVelo = transform.forward + movement * GetPlayerSpeed(); 
-            _characterController.Move(newVelo * Time.deltaTime);
+
+            // Aktualizacja animacji – np. prędkość biegu
+            SetPlayerAnimationVerticalValue?.Invoke(input.magnitude);
+    
+            // Obliczenie prędkości ruchu i przesunięcie postaci
+            Vector3 newVelocity = movement * GetPlayerSpeed();
+            _characterController.Move(newVelocity * Time.deltaTime);
         }
 
-        
+        public override void Update()
+        {
+            base.Update();
+            HandleRotation();
+        }
+
         private void HandleRotation()
         {
             var cameraForward = cameraTransform.forward;

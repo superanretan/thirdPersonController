@@ -1,7 +1,5 @@
-﻿using System;
-using PlayerController.Interfaces;
+﻿using PlayerController.Interfaces;
 using UnityEngine;
-using Zenject;
 
 namespace PlayerController.Animation
 {
@@ -36,13 +34,8 @@ namespace PlayerController.Animation
         
         public void SetPlayerAnimationWalkSpeed(float speed)
         {
-          
             if (_animator != null)
-            {
                 _animator.SetFloat("Vertical", speed);
-             //   _animator.SetLayerWeight(_idleLayerIndex, speed <= 0.01f ? 1 : 0);
-            }
         }
-    
     }
 }
